@@ -36,11 +36,43 @@ Above JSON file will be like following after packing:
 ]
 ```
 
+Also, it works perfectly with nested JSON keys and values:
 
+```js
+[{
+  'boo': 'val1',
+  'nested': {
+    'boo_nested': 'val_nested1',
+    'foo_nested': 'val_nested2',
+    'bar_nested': 'val_nested3'
+  },
+  'bar': 'val2'
+}, {
+  'boo': 'val1',
+  'nested': {
+    'boo_nested': 'val_nested1',
+    'foo_nested': 'val_nested2',
+    'bar_nested': 'val_nested3'
+  },
+  'bar': 'val2'
+}]
+```
+
+And it will be:
+
+```js
+[
+  //keys
+  ['boo', 'nested': ['boo_nested', 'foo_nested', 'bar_nested'], 'bar'],
+  //values
+  ['val1', ['val_nested1', 'val_nested2', 'val_nested3'], 'val2'],
+  ['val1', ['val_nested1', 'val_nested2', 'val_nested3'], 'val2']
+]
+```
 
 
 # Roadmap
-- Write packer/unpacker for Go, Python, C#, C/C++.
+- Packer/unpacker for JavaScript, Go, Python, C#, C/C++, Ruby.
 
 # Contribute
 
