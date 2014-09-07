@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Docs by homogenius</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Docs</h1>
+        <p>Protocol documentation</p>
+        <p class="view"><a href="https://github.com/homogenius/docs">View the Project on GitHub <small>homogenius/docs</small></a></p>
+        <ul>
+          <li><a href="https://github.com/homogenius/docs/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/homogenius/docs/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/homogenius/docs">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="homogenius-documentation" class="anchor" href="#homogenius-documentation"><span class="octicon octicon-link"></span></a>Homogenius documentation</h1>
+
+<p>Homogenius is a packing/unpacking technique to reduce the size of homogenous JSON files. </p>
+
+<h1>
+<a name="philosophy" class="anchor" href="#philosophy"><span class="octicon octicon-link"></span></a>Philosophy</h1>
+
+<p>The main point of Homogenius is to prevent repeating keys and values in a homogenous JSON format, so this reduces the size of the JSON file.</p>
+
+<p>Currently we are in the first version of Homogenius and in this initial version, we are going to prevent repeating keys only. Further, we will alter Homogenius so it also prevents repeating values also.</p>
+
+<h1>
+<a name="how-it-works" class="anchor" href="#how-it-works"><span class="octicon octicon-link"></span></a>How it works</h1>
+
+<p>Suppose following JSON file:</p>
+
+<div class="highlight highlight-js"><pre><span class="p">[{</span>
+  <span class="s1">'boo'</span><span class="o">:</span> <span class="s1">'val1'</span><span class="p">,</span>
+  <span class="s1">'foo'</span><span class="o">:</span> <span class="s1">'val2'</span><span class="p">,</span>
+  <span class="s1">'bar'</span><span class="o">:</span> <span class="s1">'val3'</span>
+<span class="p">},</span> <span class="p">{</span>
+  <span class="s1">'boo'</span><span class="o">:</span> <span class="s1">'val1'</span><span class="p">,</span>
+  <span class="s1">'foo'</span><span class="o">:</span> <span class="s1">'val2'</span><span class="p">,</span>
+  <span class="s1">'bar'</span><span class="o">:</span> <span class="s1">'val3'</span>
+<span class="p">}]</span>
+</pre></div>
+
+<p>Above JSON file will be like following after packing:</p>
+
+<div class="highlight highlight-js"><pre><span class="p">[</span>
+    <span class="p">[{</span>
+        <span class="s2">"boo"</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">"foo"</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">"bar"</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">}],</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="s2">"val1"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"val2"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"val3"</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+
+<p>Also, it works perfectly with nested JSON keys and values:</p>
+
+<div class="highlight highlight-js"><pre><span class="p">[{</span>
+  <span class="s1">'boo'</span><span class="o">:</span> <span class="s1">'val1'</span><span class="p">,</span>
+  <span class="s1">'nested'</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">'boo_nested'</span><span class="o">:</span> <span class="s1">'val_nested1'</span><span class="p">,</span>
+    <span class="s1">'foo_nested'</span><span class="o">:</span> <span class="s1">'val_nested2'</span><span class="p">,</span>
+    <span class="s1">'bar_nested'</span><span class="o">:</span> <span class="s1">'val_nested3'</span>
+  <span class="p">},</span>
+  <span class="s1">'bar'</span><span class="o">:</span> <span class="s1">'val2'</span>
+<span class="p">},</span> <span class="p">{</span>
+  <span class="s1">'boo'</span><span class="o">:</span> <span class="s1">'val1'</span><span class="p">,</span>
+  <span class="s1">'nested'</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">'boo_nested'</span><span class="o">:</span> <span class="s1">'val_nested1'</span><span class="p">,</span>
+    <span class="s1">'foo_nested'</span><span class="o">:</span> <span class="s1">'val_nested2'</span><span class="p">,</span>
+    <span class="s1">'bar_nested'</span><span class="o">:</span> <span class="s1">'val_nested3'</span>
+  <span class="p">},</span>
+  <span class="s1">'bar'</span><span class="o">:</span> <span class="s1">'val2'</span>
+<span class="p">}]</span>
+</pre></div>
+
+<p>And it will be:</p>
+
+<div class="highlight highlight-js"><pre><span class="p">[</span>
+    <span class="p">[{</span>
+        <span class="s2">"boo"</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">"nested"</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="s2">"boo_nested"</span><span class="o">:</span> <span class="mi">1</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">"foo_nested"</span><span class="o">:</span> <span class="mi">1</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">"bar_nested"</span><span class="o">:</span> <span class="mi">1</span>
+        <span class="p">}]</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">"bar"</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">}],</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="s2">"val1"</span><span class="p">],</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="s2">"val_nested1"</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">"val_nested2"</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">"val_nested3"</span><span class="p">]</span>
+        <span class="p">],</span>
+        <span class="p">[</span><span class="s2">"val2"</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+
+<h1>
+<a name="roadmap" class="anchor" href="#roadmap"><span class="octicon octicon-link"></span></a>Roadmap</h1>
+
+<ul>
+<li>Packer/unpacker for <em>JavaScript</em>, Go, Python, C#, C/C++, Ruby.</li>
+</ul><h1>
+<a name="contribute" class="anchor" href="#contribute"><span class="octicon octicon-link"></span></a>Contribute</h1>
+
+<h1>
+<a name="authors" class="anchor" href="#authors"><span class="octicon octicon-link"></span></a>Authors</h1>
+
+<ul>
+<li>Afshin Mehrabani</li>
+</ul><h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>MIT</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/homogenius">homogenius</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
