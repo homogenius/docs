@@ -28,11 +28,20 @@ Above JSON file will be like following after packing:
 
 ```js
 [
-  //keys
-  ['boo', 'foo', 'bar'],
-  //values
-  ['val1', 'val2', 'val3'],
-  ['val1', 'val2', 'val3']
+    [{
+        "boo": 1
+    }, {
+        "foo": 1
+    }, {
+        "bar": 1
+    }],
+    [
+        ["val1"],
+        ["val2"],
+        ["val3"]
+    ],
+    [0, 0, 0],
+    [0, 0, 0]
 ]
 ```
 
@@ -62,17 +71,36 @@ And it will be:
 
 ```js
 [
-  //keys
-  ['boo', 'nested': ['boo_nested', 'foo_nested', 'bar_nested'], 'bar'],
-  //values
-  ['val1', ['val_nested1', 'val_nested2', 'val_nested3'], 'val2'],
-  ['val1', ['val_nested1', 'val_nested2', 'val_nested3'], 'val2']
+    [{
+        "boo": 1
+    }, {
+        "nested": [{
+            "boo_nested": 1
+        }, {
+            "foo_nested": 1
+        }, {
+            "bar_nested": 1
+        }]
+    }, {
+        "bar": 1
+    }],
+    [
+        ["val1"],
+        [
+            ["val_nested1"],
+            ["val_nested2"],
+            ["val_nested3"]
+        ],
+        ["val2"]
+    ],
+    [0, [0, 0, 0], 0],
+    [0, [0, 0, 0], 0]
 ]
 ```
 
 
 # Roadmap
-- Packer/unpacker for JavaScript, Go, Python, C#, C/C++, Ruby.
+- Packer/unpacker for <em style="text-decoration: line-through;">JavaScript</em>, Go, Python, C#, C/C++, Ruby.
 
 # Contribute
 
