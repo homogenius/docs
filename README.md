@@ -6,7 +6,7 @@ Homogenius is a packing/unpacking technique to reduce the size of homogenous JSO
 # Philosophy 
 The main point of Homogenius is to prevent repeating keys and values in a homogenous JSON format, so this reduces the size of the JSON file.
 
-Currently we are in the first version of Homogenius and in this initial version, we are going to prevent repeating keys only. Further, we will alter Homogenius so it also prevents repeating values also.
+Currently we are in the first version of Homogenius and in this initial version, we are going to prevent repeating keys only. Further, we will alter Homogenius so it also prevents repeating values.
 
 # How it works
 
